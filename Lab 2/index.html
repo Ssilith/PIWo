@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Lista ToDo</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Lista ToDo</h1>
+      <div class="input-group">
+        <input type="text" id="newItemInput" placeholder="Dodaj nową pozycję...">
+        <button id="addButton">Dodaj</button>
+      </div>
+      <ul id="todoList">
+      </ul>
+    </div>
+    <div id="confirmDeleteModal" class="modal">
+      <div class="modal-content">
+        <p>Czy na pewno chcesz usunąć to zadanie?</p>
+        <div class="modal-buttons">
+          <button id="confirmDeleteButton">Usuń</button>
+          <button id="cancelDeleteButton">Anuluj</button>
+        </div>
+      </div>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
