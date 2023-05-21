@@ -1,8 +1,11 @@
-import React from 'react';
-import { Navbar, Nav } from 'react-bootstrap';
+import React, { useContext } from 'react';
+import { Navbar, Nav, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import AuthContext from './AuthContext';
 
 const MyNavbar = ({ darkMode }) => {
+  const { user, logout, login } = useContext(AuthContext);
+
   return (
     <Navbar
       bg={darkMode ? 'dark' : 'light'}
@@ -25,6 +28,27 @@ const MyNavbar = ({ darkMode }) => {
           </Link>
         </Nav.Link>
       </Nav>
+      <Nav>
+        <Nav.Link>
+          <Link to="/no-idea" style={{ textDecoration: 'none', color: darkMode ? 'var(--dark-text)' : 'var(--light-text)' }}>
+            No Idea
+          </Link>
+        </Nav.Link>
+      </Nav>
+      {user ? (
+        <>
+          <Navbar.Text>
+            Zalogowany jako: {user.name} {user.surname}
+          </Navbar.Text>
+          <Button onClick={logout}>Wyloguj</Button>
+        </>
+      ) : (
+        <Nav.Link>
+          <Link to="/login" style={{ textDecoration: 'none', color: darkMode ? 'var(--dark-text)' : 'var(--light-text)' }}>
+            Login
+          </Link>
+        </Nav.Link>
+      )}
     </Navbar>
   );
 };

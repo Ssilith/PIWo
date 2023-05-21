@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Button, Form } from 'react-bootstrap';
 
 const AddProperty = ({ addProperty }) => {
@@ -6,6 +6,12 @@ const AddProperty = ({ addProperty }) => {
   const [bedrooms, setBedrooms] = useState('');
   const [description, setDescription] = useState('');
   const [price, setPrice] = useState('');
+
+  const cityInput = useRef(null);
+
+  useEffect(() => {
+    cityInput.current.focus();
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -18,7 +24,7 @@ const AddProperty = ({ addProperty }) => {
       <Form onSubmit={handleSubmit}>
         <Form.Group controlId="formCity">
           <Form.Label>Miasto:</Form.Label>
-          <Form.Control type="text" value={city} onChange={(e) => setCity(e.target.value)} />
+          <Form.Control type="text" value={city} ref={cityInput} onChange={(e) => setCity(e.target.value)} />
         </Form.Group>
         <Form.Group controlId="formBedrooms">
           <Form.Label>Ilość sypialni:</Form.Label>
