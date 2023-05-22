@@ -20,7 +20,11 @@ function App() {
     const fetchProperties = async () => {
       try {
         const response = await axios.get('/data.json');
-        setProperties(response.data);
+        const propertiesWithImages = response.data.map(property => ({
+          ...property,
+          photo: images[property.photo],
+        }));
+        setProperties(propertiesWithImages);
       } catch (error) {
         console.error(`Error fetching data: ${error}`);
       }
@@ -67,9 +71,13 @@ function App() {
     color: darkMode ? 'var(--dark-text)' : 'var(--light-text)',
   };
 
+  const images = {
+    'house.jpg': image,
+  };
+
   function addProperty(newProperty) {
     const newId = properties.length + 1;
-    setProperties([...properties, { id: newId, photo: image, ...newProperty }]);
+    setProperties([...properties, { id: newId, photo: images['house.jpg'], ...newProperty }]);
   }
 
   return (
