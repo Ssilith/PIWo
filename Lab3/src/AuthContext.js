@@ -1,24 +1,41 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useState, useEffect } from 'react';
 import { auth, gitProvider, googleProvider } from './config';
-import { signOut, signInWithPopup } from "firebase/auth";
+import { signOut, signInWithPopup, createUserWithEmailAndPassword, updateProfile, signInWithEmailAndPassword, onAuthStateChanged, reload } from "firebase/auth";
 
 export const AuthContext = createContext({});
 
 export const AuthProvider = ({ children }) => {
 
-  const users = [
-    { email: 'usermail1@gmail.com', password: 'pass1', name: 'Jan', surname: 'Kowalski' },
-    { email: 'usermail2@gmail.com', password: 'pass2', name: 'Pawel', surname: 'Nowak' },
-    { email: 'usermail3@gmail.com', password: 'pass3', name: 'Piotr', surname: 'Kowal' },
-  ];
+  const [user, setUser] = useState(null);
 
-  const [user, setUser] = useState(() => {
-    const localData = localStorage.getItem('user');
-  });
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setUser(user);
+    });
 
-  const login = (email, password) => {
-    const user = users.find(u => u.email === email && u.password === password);
-    setUser(user);
+    return () => unsubscribe();
+  }, []);
+
+  const login = async (email, password) => {
+    try {
+      const res = await signInWithEmailAndPassword(auth, email, password);
+      setUser(res.user);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const register = async (email, password, displayName) => {
+    try {
+      const res = await createUserWithEmailAndPassword(auth, email, password);
+      if (res.user) {
+        await updateProfile(auth.currentUser, { displayName: displayName });
+        await reload(res.user);
+        setUser({ ...res.user, displayName: displayName });
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const logout = async () => {
@@ -51,7 +68,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, logout, googleLogin, githubLogin }}>
+    <AuthContext.Provider value={{ user, login, logout, googleLogin, githubLogin, register }}>
       {children}
     </AuthContext.Provider>
   );

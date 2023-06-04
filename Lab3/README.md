@@ -9,4 +9,5 @@ Lab4:
 Lab5:
   * możliwość zalogowania przed Google i Github
   * wdrożenie aplikacji na firebase
-  * https://lab5-d2768.web.app/
+  * rejestracja z mailem i hasłem
+  * https://lab5-d2768.firebaseapp.com/

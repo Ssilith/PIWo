@@ -5,8 +5,9 @@ import { AuthContext } from './AuthContext';
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [displayName, setDisplayName] = useState('');
 
-    const { user, login, logout, googleLogin, githubLogin } = useContext(AuthContext);
+    const { user, login, logout, googleLogin, githubLogin, register } = useContext(AuthContext);
 
 
     const emailInput = React.createRef();
@@ -32,6 +33,11 @@ const Login = () => {
         logout();
     };
 
+    const handleRegister = (event) => {
+        event.preventDefault();
+        register(email, password, displayName);
+    }
+
     return (
         <>
             {user ? (
@@ -55,6 +61,15 @@ const Login = () => {
                         <Form.Label>Hasło</Form.Label>
                         <Form.Control type="password" placeholder="Hasło" value={password} onChange={(e) => setPassword(e.target.value)} />
                     </Form.Group>
+                    <Form.Group controlId="formDisplayName">
+                        <Form.Label>Display Name</Form.Label>
+                        <Form.Control
+                            type="text"
+                            placeholder="Wprowadź display name"
+                            value={displayName}
+                            onChange={(e) => setDisplayName(e.target.value)}
+                        />
+                    </Form.Group>
                     <Button variant="primary" type="submit">
                         Potwierdź
                     </Button>
@@ -63,6 +78,9 @@ const Login = () => {
                     </Button>
                     <Button variant="secondary" onClick={handleGithubLogin}>
                         Zaloguj się za pomocą Github
+                    </Button>
+                    <Button variant="secondary" onClick={handleRegister}>
+                        Zarejestruj
                     </Button>
                 </Form>
             )}
