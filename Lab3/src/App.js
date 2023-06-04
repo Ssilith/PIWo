@@ -3,11 +3,11 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Container, Form } from 'react-bootstrap';
 import axios from 'axios';
 
+import { AuthProvider } from './AuthContext';
 import Navbar from './Navbar';
 import Properties from './Properties';
 import AddProperty from './AddProperty';
 import image from './house.jpg';
-import AuthContext from './AuthContext';
 import Login from './Login';
 import NoIdea from './NoIdea';
 
@@ -31,30 +31,6 @@ function App() {
     }
     fetchProperties();
   }, []);
-
-  const users = [
-    { email: 'usermail1@gmail.com', password: 'pass1', name: 'Jan', surname: 'Kowalski' },
-    { email: 'usermail2@gmail.com', password: 'pass2', name: 'Pawel', surname: 'Nowak' },
-    { email: 'usermail3@gmail.com', password: 'pass3', name: 'Piotr', surname: 'Kowal' },
-  ];
-
-  const [user, setUser] = useState(() => {
-    const localData = localStorage.getItem('user');
-    return localData ? JSON.parse(localData) : null;
-  });
-
-  useEffect(() => {
-    localStorage.setItem('user', JSON.stringify(user));
-  }, [user]);
-
-  const login = (email, password) => {
-    const user = users.find(u => u.email === email && u.password === password);
-    setUser(user);
-  };
-
-  const logout = () => {
-    setUser(null);
-  }
 
   function getInitialMode() {
     const savedMode = JSON.parse(localStorage.getItem('dark'));
@@ -83,8 +59,8 @@ function App() {
   return (
     <div style={themeStyle}>
       <BrowserRouter>
-        <AuthContext.Provider value={{ user, login, logout }}>
-          <Navbar key={user ? user.name : 'guest'} darkMode={darkMode} setMode={setMode} />
+        <AuthProvider>
+          <Navbar darkMode={darkMode} setMode={setMode} />
           <Container>
             <Routes>
               <Route path="/" element={<Properties properties={properties} darkMode={darkMode} />} />
@@ -101,7 +77,7 @@ function App() {
               />
             </div>
           </Container>
-        </AuthContext.Provider>
+        </AuthProvider>
       </BrowserRouter>
     </div>
   );

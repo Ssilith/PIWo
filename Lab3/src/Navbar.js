@@ -1,10 +1,10 @@
 import React, { useContext } from 'react';
 import { Navbar, Nav, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import AuthContext from './AuthContext';
+import { AuthContext } from './AuthContext';
 
 const MyNavbar = ({ darkMode }) => {
-  const { user, logout, login } = useContext(AuthContext);
+  const { user, login, logout, googleLogin, githubLogin } = useContext(AuthContext);
 
   return (
     <Navbar
