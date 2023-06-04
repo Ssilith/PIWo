@@ -1,0 +1,56 @@
+[
+    {
+        "id": 1,
+        "city": "Kraków",
+        "bedrooms": 3,
+        "description": "Nowoczesny apartament z tarasem widokowym",
+        "price": 570000,
+        "photo": "house.jpg",
+        "email": "mail1@gmail.com"
+    },
+    {
+        "id": 2,
+        "city": "Wrocław",
+        "bedrooms": 4,
+        "description": "Przestronne mieszkanie z 4 sypialniami w Wrocławiu",
+        "price": 420000,
+        "photo": "house.jpg",
+        "email": "mail2@gmail.com"
+    },
+    {
+        "id": 3,
+        "city": "Gdańsk",
+        "bedrooms": 3,
+        "description": "Mieszkanie 3-pokojowe w centrum Gdańska",
+        "price": 550000,
+        "photo": "house.jpg",
+        "email": "mail3@gmail.com"
+    },
+    {
+        "id": 4,
+        "city": "Łódź",
+        "bedrooms": 5,
+        "description": "Kamienica z dużym tarasem i pięknym widokiem",
+        "price": 920000,
+        "photo": "house.jpg",
+        "email": "mail4@gmail.com"
+    },
+    {
+        "id": 5,
+        "city": "Poznań",
+        "bedrooms": 6,
+        "description": "Duży dom z basenem i ogrodem",
+        "price": 780000,
+        "photo": "house.jpg",
+        "email": "mail5@gmail.com"
+    },
+    {
+        "id": 6,
+        "city": "Warszawa",
+        "bedrooms": 2,
+        "description": "Apartament w stylu loft w Warszawie",
+        "price": 680000,
+        "photo": "house.jpg",
+        "email": "mail6@gmail.com"
+    }
+]
