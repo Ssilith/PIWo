@@ -1,0 +1,26 @@
+version: '3.1'
+
+services:
+  database:
+    image: mongo:5.0.0
+    hostname: mongodb
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: mongoadmin
+      MONGO_INITDB_ROOT_PASSWORD: example_password
+      MONGO_INITDB_DATABASE: users
+    ports:
+      - 27017:27017
+  backend:
+    build: ./backend
+    environment:
+      MONGO_INITDB_ROOT_PASSWORD: example_password
+    ports:
+      - 5000:5000
+    depends_on:
+      - database
+  frontend:
+    build: ./frontend
+    ports:
+      - 3000:3000
+    depends_on:
+      - backend
